@@ -96,6 +96,7 @@ function displayQuestion() {
 }
 
 let scoreCounter = 0;
+let questionsAnswered = 0;
 
 
 //select answer - check if answer correct
@@ -106,17 +107,17 @@ function checkAnswer(event) {
     if (event.target.innerHTML === correctAnswer.innerHTML) {
         event.target.style.backgroundColor = "green";
         scoreCounter++
-        scoreBox.innerHTML = `Score: ${scoreCounter}`
+        questionsAnswered++
+        scoreBox.innerHTML = `Score: ${scoreCounter} of ${questionsAnswered}`
     } else {
         event.target.style.backgroundColor = "red";
         event.target.innerHTML += `<br><br>The correct answer was ${correctAnswer.innerHTML}`
+        questionsAnswered++
+        scoreBox.innerHTML = `Score: ${scoreCounter} of ${questionsAnswered}`
     }
     answerGiven = !answerGiven;
     console.log(questions[0])
     questions.shift()
-    if (questions === []) {
-      alert("No questions remaining, please refresh to start again")
-    }
 }
 
     
