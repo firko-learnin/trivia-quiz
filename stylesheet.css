@@ -83,3 +83,12 @@ button {
     font-size: 1rem;
     margin: 1rem;
 }
+
+.qDropdown {
+    width: 6rem;
+    height: 3rem;
+    background-color:rgb(136, 95, 160);
+    border-radius: 10px;
+    font-size: 1rem;
+    margin: 1rem;
+}
