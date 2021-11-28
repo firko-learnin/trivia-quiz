@@ -15,9 +15,24 @@
     <header>
       <h1>Trivia Quiz!</h1>
       <div id="disappear">
-      <label for="numberQuestions">How many questions would you like to answer?</label>
-      <input id="numberQuestions" type="number" min="0" max="50" step="1" />
+      <label for="numberQuestions">How many questions would you like to answer? <i>(Max 50)</i></label>
+      <div></div>
+      <input id="numberQuestions" type="number" min="0" max="50" step="1" class="dropdown"/>
       <button id="getQuestions">Get questions</button>
+      <div>
+        <label for="categories">Select a category:</label>
+        <div></div>
+        <select name="categories" id="categories" class="dropdown"></select>
+      </div>
+      <div>
+        <label for="difficulty">Select a difficulty:</label>
+        <div></div>
+        <select name="difficulty" id="difficulty" class="dropdown">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
       <p class="startText">Make your choices above, click get questions, then click start to begin!</p>
       <button class="startText" id="start">Start</button>
     </div>

@@ -70,7 +70,16 @@ button {
     width: 100px;
     height: 50px;
     background-color:rgb(238, 248, 145);
-    
     border-radius: 10px;
     font-size: 1rem;
+    margin: 1rem;
+}
+
+.dropdown {
+    width: 15rem;
+    height: 5rem;
+    background-color:rgb(136, 95, 160);
+    border-radius: 10px;
+    font-size: 1rem;
+    margin: 1rem;
 }

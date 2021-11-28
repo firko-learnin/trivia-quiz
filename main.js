@@ -21,6 +21,10 @@ let answerGiven = false;
 let scoreBox = document.querySelector("#score")
 let getQuestionButton = document.querySelector("#getQuestions")
 let disappearText = document.querySelector("#disappear")
+let categories = [];
+let categoryList = document.querySelector("#categories")
+let getCatButton = document.querySelector("#getCategories")
+let difficulty = document.querySelector("#difficulty")
 
 // sample url
 // https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
@@ -29,12 +33,26 @@ let disappearText = document.querySelector("#disappear")
 let inputNumberQuestions = document.querySelector("#numberQuestions");
 let numQuestions;
 
+//Get categories from API
+async function getCategories() {
+  const catResponse = await fetch("https://opentdb.com/api_category.php");
+  categories = await catResponse.json();
+  categories = categories.trivia_categories;
+  for (let i = 0; i < categories.length; i++) {
+    let newOption = document.createElement("option")
+    newOption.text = categories[i].name;
+    newOption.value = categories[i].id;
+    var select = document.getElementById("categories")
+    select.appendChild(newOption);
+  }
+}
+getCategories();
 
 
-//Reuqest questions from API
+//Request questions from API
 async function getQuestions() {
     numQuestions = inputNumberQuestions.value;
-    const response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&type=multiple`);
+    const response = await fetch(`https://opentdb.com/api.php?amount=${numQuestions}&category=${categoryList.value}&difficulty=${difficulty.value}&type=multiple`);
   let data = await response.json();
   questions = data.results;
   startButton.style.display = "block"
@@ -46,7 +64,7 @@ async function getQuestions() {
 function populateQuestion() {
     if(!questions.length) {
         return
-    } else { 
+    } else {
 
   let answersArray = [];
   answersArray.push(questions[0].correct_answer)
@@ -72,13 +90,16 @@ function shuffleArray(array) {
   return array;
 }
 function nextQuestion () {
+  if (questions[0] !== undefined) {
   populateQuestion();
-  console.log(questions)
   answer1.style.backgroundColor = ""
   answer2.style.backgroundColor = ""
   answer3.style.backgroundColor = ""
   answer4.style.backgroundColor = ""
   answerGiven = false;
+} else {
+  alert("No questions remaining. Please refresh to play again.")
+}
 }
 //Event listeners for buttons
 
@@ -111,7 +132,7 @@ function checkAnswer(event) {
         scoreBox.innerHTML = `Score: ${scoreCounter} of ${questionsAnswered}`
     } else {
         event.target.style.backgroundColor = "red";
-        event.target.innerHTML += `<br><br>The correct answer was ${correctAnswer.innerHTML}`
+        event.target.innerHTML += `<br><br>The correct answer was: ${correctAnswer.innerHTML}`
         questionsAnswered++
         scoreBox.innerHTML = `Score: ${scoreCounter} of ${questionsAnswered}`
     }
